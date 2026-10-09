@@ -1,0 +1,8 @@
+{
+  "role": "Full Stack Developer",
+  "level": "Fresher / 0-2 years",
+  "requiredSkills": ["Java", "React", "JavaScript", "SQL", "REST API", "Git", "HTML", "CSS"],
+  "preferredSkills": ["Spring Boot", "Node.js", "Docker", "TypeScript", "MongoDB", "AWS", "CI/CD"],
+  "keywords": ["full stack", "frontend", "backend", "API", "web development", "database"],
+  "description": "We are looking for a Full Stack Developer comfortable working on both frontend React applications and backend Java/Spring Boot services. You will own features end-to-end from database to UI."
+}

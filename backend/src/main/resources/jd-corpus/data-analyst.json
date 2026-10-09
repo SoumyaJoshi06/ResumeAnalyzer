@@ -1,0 +1,8 @@
+{
+  "role": "Data Analyst",
+  "level": "Fresher / 0-2 years",
+  "requiredSkills": ["Python", "SQL", "Excel", "Data Visualization", "Statistics"],
+  "preferredSkills": ["Power BI", "Tableau", "Pandas", "NumPy", "Machine Learning", "R", "Jupyter"],
+  "keywords": ["data analysis", "dashboards", "reporting", "business intelligence", "analytics"],
+  "description": "We are looking for a Data Analyst to collect, clean, and interpret datasets to help make business decisions. You will create visualizations, dashboards, and reports to communicate insights effectively."
+}

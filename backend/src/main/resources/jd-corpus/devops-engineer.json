@@ -1,0 +1,8 @@
+{
+  "role": "DevOps Engineer",
+  "level": "Fresher / 0-2 years",
+  "requiredSkills": ["Linux", "Docker", "Git", "CI/CD", "Bash Scripting", "Networking"],
+  "preferredSkills": ["Kubernetes", "AWS", "Terraform", "Jenkins", "Ansible", "Prometheus", "Grafana"],
+  "keywords": ["DevOps", "infrastructure", "deployment", "containers", "pipelines", "cloud", "automation"],
+  "description": "We are looking for a DevOps Engineer to build and maintain CI/CD pipelines, manage containerized deployments, and improve infrastructure reliability. You will work closely with development teams to automate and streamline delivery processes."
+}

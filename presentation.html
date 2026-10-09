@@ -1,0 +1,725 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>ResumeIQ — Project Presentation</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      font-family: 'Segoe UI', system-ui, sans-serif;
+      background: #0f172a;
+      color: #f1f5f9;
+      overflow: hidden;
+      height: 100vh;
+    }
+
+    /* ── SLIDE CONTAINER ── */
+    .slides { width: 100%; height: 100vh; position: relative; }
+
+    .slide {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      padding: 60px;
+      opacity: 0;
+      transform: translateY(30px);
+      pointer-events: none;
+      transition: opacity 0.45s ease, transform 0.45s ease;
+    }
+    .slide.active {
+      opacity: 1;
+      transform: translateY(0);
+      pointer-events: all;
+    }
+
+    /* ── PROGRESS BAR ── */
+    #progress-bar {
+      position: fixed;
+      top: 0; left: 0;
+      height: 3px;
+      background: linear-gradient(90deg, #6366f1, #a78bfa);
+      transition: width 0.4s ease;
+      z-index: 100;
+    }
+
+    /* ── NAV DOTS ── */
+    #dots {
+      position: fixed;
+      bottom: 28px;
+      left: 50%;
+      transform: translateX(-50%);
+      display: flex;
+      gap: 8px;
+      z-index: 100;
+    }
+    .dot {
+      width: 8px; height: 8px;
+      border-radius: 50%;
+      background: #334155;
+      cursor: pointer;
+      transition: background 0.3s, transform 0.3s;
+    }
+    .dot.active { background: #6366f1; transform: scale(1.4); }
+
+    /* ── ARROWS ── */
+    #prev, #next {
+      position: fixed;
+      top: 50%;
+      transform: translateY(-50%);
+      background: rgba(99,102,241,0.15);
+      border: 1px solid rgba(99,102,241,0.3);
+      color: #a5b4fc;
+      width: 44px; height: 44px;
+      border-radius: 50%;
+      font-size: 18px;
+      cursor: pointer;
+      z-index: 100;
+      transition: background 0.2s;
+      display: flex; align-items: center; justify-content: center;
+    }
+    #prev:hover, #next:hover { background: rgba(99,102,241,0.35); }
+    #prev { left: 20px; }
+    #next { right: 20px; }
+
+    /* ── SLIDE NUMBER ── */
+    #slide-num {
+      position: fixed;
+      top: 20px; right: 28px;
+      font-size: 12px;
+      color: #475569;
+      z-index: 100;
+      letter-spacing: 1px;
+    }
+
+    /* ── TYPOGRAPHY ── */
+    .label {
+      font-size: 11px;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      color: #6366f1;
+      font-weight: 600;
+      margin-bottom: 16px;
+    }
+    h1 { font-size: 52px; font-weight: 800; line-height: 1.1; }
+    h2 { font-size: 36px; font-weight: 700; margin-bottom: 32px; }
+    h3 { font-size: 20px; font-weight: 600; color: #a5b4fc; margin-bottom: 12px; }
+    p  { font-size: 17px; color: #94a3b8; line-height: 1.7; max-width: 680px; text-align: center; }
+    .tagline { font-size: 22px; color: #a5b4fc; font-style: italic; margin-top: 12px; }
+
+    /* ── GRADIENT TEXT ── */
+    .grad {
+      background: linear-gradient(135deg, #6366f1, #a78bfa, #38bdf8);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    /* ── CARDS ── */
+    .cards {
+      display: flex;
+      gap: 20px;
+      flex-wrap: wrap;
+      justify-content: center;
+      margin-top: 12px;
+    }
+    .card {
+      background: #1e293b;
+      border: 1px solid #334155;
+      border-radius: 16px;
+      padding: 24px 28px;
+      min-width: 180px;
+      max-width: 220px;
+      text-align: center;
+    }
+    .card .icon { font-size: 32px; margin-bottom: 10px; }
+    .card .title { font-size: 14px; font-weight: 600; color: #e2e8f0; margin-bottom: 6px; }
+    .card .desc  { font-size: 12px; color: #64748b; line-height: 1.5; }
+
+    /* ── TABLE ── */
+    table { border-collapse: collapse; width: 100%; max-width: 800px; margin-top: 12px; }
+    th {
+      background: #1e293b;
+      color: #6366f1;
+      font-size: 12px;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      padding: 12px 16px;
+      text-align: left;
+    }
+    td {
+      padding: 11px 16px;
+      font-size: 14px;
+      color: #cbd5e1;
+      border-bottom: 1px solid #1e293b;
+    }
+    tr:hover td { background: #1e293b55; }
+    .badge {
+      display: inline-block;
+      padding: 2px 10px;
+      border-radius: 99px;
+      font-size: 11px;
+      font-weight: 600;
+    }
+    .badge-green  { background: #14532d; color: #4ade80; }
+    .badge-blue   { background: #1e3a5f; color: #60a5fa; }
+    .badge-purple { background: #2e1065; color: #c4b5fd; }
+
+    /* ── FLOW DIAGRAM ── */
+    .flow {
+      display: flex;
+      align-items: center;
+      gap: 0;
+      flex-wrap: wrap;
+      justify-content: center;
+      margin-top: 16px;
+    }
+    .flow-box {
+      background: #1e293b;
+      border: 1px solid #334155;
+      border-radius: 12px;
+      padding: 14px 20px;
+      text-align: center;
+      font-size: 13px;
+      color: #e2e8f0;
+      min-width: 130px;
+    }
+    .flow-box .sub { font-size: 10px; color: #64748b; margin-top: 4px; }
+    .arrow {
+      color: #4f46e5;
+      font-size: 22px;
+      padding: 0 6px;
+    }
+
+    /* ── ARCH DIAGRAM ── */
+    .arch {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+      align-items: center;
+      width: 100%;
+      max-width: 860px;
+    }
+    .arch-row {
+      display: flex;
+      gap: 12px;
+      align-items: center;
+      justify-content: center;
+      width: 100%;
+    }
+    .arch-box {
+      background: #1e293b;
+      border: 1px solid #334155;
+      border-radius: 12px;
+      padding: 12px 18px;
+      font-size: 13px;
+      text-align: center;
+      color: #e2e8f0;
+    }
+    .arch-box.blue  { border-color: #3b82f6; background: #0c1d3a; color: #93c5fd; }
+    .arch-box.green { border-color: #22c55e; background: #052e16; color: #86efac; }
+    .arch-box.purple{ border-color: #a855f7; background: #1a0533; color: #d8b4fe; }
+    .arch-box.orange{ border-color: #f97316; background: #2c1500; color: #fdba74; }
+    .arch-label { font-size: 10px; color: #475569; text-transform: uppercase; letter-spacing: 1px; text-align: center; }
+    .arch-arrow { font-size: 20px; color: #4f46e5; }
+
+    /* ── AI CALLS ── */
+    .ai-calls { display: flex; flex-direction: column; gap: 10px; width: 100%; max-width: 740px; }
+    .ai-row {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      background: #1e293b;
+      border: 1px solid #334155;
+      border-radius: 12px;
+      padding: 14px 20px;
+    }
+    .ai-num {
+      background: #312e81;
+      color: #a5b4fc;
+      font-size: 13px;
+      font-weight: 700;
+      width: 28px; height: 28px;
+      border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      flex-shrink: 0;
+    }
+    .ai-content { flex: 1; }
+    .ai-title { font-size: 14px; font-weight: 600; color: #e2e8f0; }
+    .ai-desc  { font-size: 12px; color: #64748b; margin-top: 2px; }
+    .ai-out   { font-size: 11px; color: #22c55e; margin-top: 3px; }
+
+    /* ── HIGHLIGHT BOX ── */
+    .highlight {
+      background: linear-gradient(135deg, #1e1b4b, #0f172a);
+      border: 1px solid #4f46e5;
+      border-radius: 16px;
+      padding: 28px 36px;
+      max-width: 700px;
+      text-align: center;
+      margin-top: 8px;
+    }
+    .highlight p { text-align: center; font-size: 18px; color: #c7d2fe; }
+
+    /* ── TEAM ── */
+    .team { display: flex; gap: 24px; margin-top: 8px; flex-wrap: wrap; justify-content: center; }
+    .team-card {
+      background: #1e293b;
+      border: 1px solid #334155;
+      border-radius: 14px;
+      padding: 20px 28px;
+      text-align: center;
+      min-width: 160px;
+    }
+    .team-card .avatar {
+      width: 48px; height: 48px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, #6366f1, #a78bfa);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 20px;
+      margin: 0 auto 10px;
+    }
+    .team-card .name  { font-size: 14px; font-weight: 600; color: #e2e8f0; }
+    .team-card .roll  { font-size: 11px; color: #475569; margin-top: 4px; }
+
+    /* ── STACK PILLS ── */
+    .pills { display: flex; flex-wrap: wrap; gap: 10px; justify-content: center; margin-top: 16px; }
+    .pill {
+      padding: 6px 16px;
+      border-radius: 99px;
+      font-size: 13px;
+      font-weight: 500;
+      border: 1px solid;
+    }
+
+    /* ── COMPARISON TABLE ── */
+    .compare { display: flex; gap: 20px; width: 100%; max-width: 780px; margin-top: 12px; }
+    .compare-col {
+      flex: 1;
+      background: #1e293b;
+      border-radius: 14px;
+      overflow: hidden;
+      border: 1px solid #334155;
+    }
+    .compare-col.ours { border-color: #6366f1; }
+    .compare-header {
+      padding: 14px 20px;
+      font-size: 14px;
+      font-weight: 700;
+      background: #334155;
+    }
+    .compare-col.ours .compare-header { background: #312e81; color: #a5b4fc; }
+    .compare-item {
+      padding: 10px 20px;
+      font-size: 13px;
+      color: #94a3b8;
+      border-bottom: 1px solid #1e293b;
+      display: flex; align-items: center; gap: 8px;
+    }
+    .compare-item .ci { font-size: 15px; }
+  </style>
+</head>
+<body>
+
+<div id="progress-bar"></div>
+<div id="slide-num"></div>
+<button id="prev">&#8592;</button>
+<button id="next">&#8594;</button>
+<div id="dots"></div>
+
+<div class="slides" id="slides">
+
+  <!-- ══════════════════════════════════════════════════ -->
+  <!-- SLIDE 1 — TITLE -->
+  <!-- ══════════════════════════════════════════════════ -->
+  <div class="slide">
+    <div class="label">Mini Project · 5th Sem · BCS554</div>
+    <h1><span class="grad">ResumeIQ</span></h1>
+    <div class="tagline">"Understand your resume. Know your gaps. Get hired."</div>
+    <p style="margin-top:24px;">
+      AI-Powered Resume Optimization and Job Matching Platform
+    </p>
+    <div class="team" style="margin-top:40px;">
+      <div class="team-card">
+        <div class="avatar">👩</div>
+        <div class="name">Soumya Joshi</div>
+        <div class="roll">2400320101117</div>
+      </div>
+      <div class="team-card">
+        <div class="avatar">👩</div>
+        <div class="name">Tanishka Verma</div>
+        <div class="roll">2400320101163</div>
+      </div>
+      <div class="team-card">
+        <div class="avatar">👩</div>
+        <div class="name">Vanshika Gupta</div>
+        <div class="roll">2400320101230</div>
+      </div>
+    </div>
+    <p style="margin-top:24px; font-size:13px; color:#475569;">Supervisor: Prof. Anshul Tickoo</p>
+  </div>
+
+  <!-- ══════════════════════════════════════════════════ -->
+  <!-- SLIDE 2 — THE PROBLEM -->
+  <!-- ══════════════════════════════════════════════════ -->
+  <div class="slide">
+    <div class="label">The Problem</div>
+    <h2>Students struggle with <span class="grad">resume blindness</span></h2>
+    <div class="cards">
+      <div class="card">
+        <div class="icon">🤷</div>
+        <div class="title">Which roles fit me?</div>
+        <div class="desc">No clear way to know which job titles match their current skills</div>
+      </div>
+      <div class="card">
+        <div class="icon">📉</div>
+        <div class="title">Why is ATS rejecting me?</div>
+        <div class="desc">Resumes are rejected by systems before a human reads them</div>
+      </div>
+      <div class="card">
+        <div class="icon">❓</div>
+        <div class="title">What should I learn next?</div>
+        <div class="desc">No personalised skill gap analysis tied to real role requirements</div>
+      </div>
+      <div class="card">
+        <div class="icon">✏️</div>
+        <div class="title">How do I improve it?</div>
+        <div class="desc">Generic feedback — no specific bullet-by-bullet rewrites</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ══════════════════════════════════════════════════ -->
+  <!-- SLIDE 3 — WHY NOT CHATGPT -->
+  <!-- ══════════════════════════════════════════════════ -->
+  <div class="slide">
+    <div class="label">Why not just use ChatGPT?</div>
+    <h2>We build a <span class="grad">product</span>, not a prompt</h2>
+    <div class="compare">
+      <div class="compare-col">
+        <div class="compare-header">💬 ChatGPT</div>
+        <div class="compare-item"><span class="ci">❌</span> No structured ATS score</div>
+        <div class="compare-item"><span class="ci">❌</span> No section-wise breakdown</div>
+        <div class="compare-item"><span class="ci">❌</span> No skill gap vs real roles</div>
+        <div class="compare-item"><span class="ci">❌</span> No role eligibility ranking</div>
+        <div class="compare-item"><span class="ci">❌</span> Manual copy-paste workflow</div>
+        <div class="compare-item"><span class="ci">❌</span> No re-analysis workflow</div>
+      </div>
+      <div class="compare-col ours">
+        <div class="compare-header">✦ ResumeIQ</div>
+        <div class="compare-item"><span class="ci">✅</span> Structured ATS score 0–100</div>
+        <div class="compare-item"><span class="ci">✅</span> 6-section scored breakdown</div>
+        <div class="compare-item"><span class="ci">✅</span> Strong / Partial / Missing skills</div>
+        <div class="compare-item"><span class="ci">✅</span> Top 5 roles ranked by fit %</div>
+        <div class="compare-item"><span class="ci">✅</span> One-upload full workflow</div>
+        <div class="compare-item"><span class="ci">✅</span> Before / After improvement cards</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ══════════════════════════════════════════════════ -->
+  <!-- SLIDE 4 — FEATURES -->
+  <!-- ══════════════════════════════════════════════════ -->
+  <div class="slide">
+    <div class="label">Core Features</div>
+    <h2>What <span class="grad">ResumeIQ</span> does</h2>
+    <div class="cards">
+      <div class="card">
+        <div class="icon">📊</div>
+        <div class="title">ATS Score</div>
+        <div class="desc">0–100 score across 6 sections with evidence and feedback</div>
+      </div>
+      <div class="card">
+        <div class="icon">🎯</div>
+        <div class="title">Skill Gap Analysis</div>
+        <div class="desc">Strong · Partial · Missing skills for your chosen role</div>
+      </div>
+      <div class="card">
+        <div class="icon">💼</div>
+        <div class="title">Role Eligibility</div>
+        <div class="desc">Top 5 roles you fit, ranked by match % with skill overlap</div>
+      </div>
+      <div class="card">
+        <div class="icon">✍️</div>
+        <div class="title">AI Improvements</div>
+        <div class="desc">Bullet-by-bullet rewrites with before / after + reason</div>
+      </div>
+      <div class="card">
+        <div class="icon">📚</div>
+        <div class="title">Learning Roadmap</div>
+        <div class="desc">Priority skills to learn with free course recommendations</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ══════════════════════════════════════════════════ -->
+  <!-- SLIDE 5 — USER FLOW -->
+  <!-- ══════════════════════════════════════════════════ -->
+  <div class="slide">
+    <div class="label">User Flow</div>
+    <h2>3 screens. Simple journey.</h2>
+    <div class="flow" style="margin-top:24px;">
+      <div class="flow-box">
+        📤 Upload
+        <div class="sub">Drag &amp; drop PDF</div>
+      </div>
+      <div class="arrow">→</div>
+      <div class="flow-box">
+        ⏳ Analyse
+        <div class="sub">AI processing steps</div>
+      </div>
+      <div class="arrow">→</div>
+      <div class="flow-box">
+        📊 Score
+        <div class="sub">ATS ring + section bars</div>
+      </div>
+      <div class="arrow">→</div>
+      <div class="flow-box">
+        🎯 Skills &amp; Gap
+        <div class="sub">Pick role → see gap</div>
+      </div>
+      <div class="arrow">→</div>
+      <div class="flow-box">
+        💼 Roles
+        <div class="sub">Top 5 matched roles</div>
+      </div>
+      <div class="arrow">→</div>
+      <div class="flow-box">
+        ✍️ Improve
+        <div class="sub">Before / after bullets</div>
+      </div>
+    </div>
+    <div class="highlight" style="margin-top:32px;">
+      <p>Only <strong style="color:#a5b4fc;">2 API calls</strong> total.<br/>
+      One on upload · One when user picks a role.</p>
+    </div>
+  </div>
+
+  <!-- ══════════════════════════════════════════════════ -->
+  <!-- SLIDE 6 — TECH STACK -->
+  <!-- ══════════════════════════════════════════════════ -->
+  <div class="slide">
+    <div class="label">Technology Stack</div>
+    <h2>Built with <span class="grad">modern tools</span></h2>
+    <table style="max-width:720px; margin-top:12px;">
+      <thead>
+        <tr><th>Layer</th><th>Technology</th><th>Purpose</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>Frontend</td><td><span class="badge badge-blue">React 18</span> + Vite + TailwindCSS</td><td>UI framework + fast dev server + styling</td></tr>
+        <tr><td>Backend</td><td><span class="badge badge-green">Spring Boot 4.1.1</span></td><td>REST API server</td></tr>
+        <tr><td>AI Framework</td><td><span class="badge badge-purple">Spring AI 2.0.1</span></td><td>LLM abstraction layer</td></tr>
+        <tr><td>LLM</td><td><span class="badge badge-purple">OpenAI GPT-4o-mini</span></td><td>Resume analysis, scoring, suggestions</td></tr>
+        <tr><td>PDF Parsing</td><td><span class="badge badge-blue">Apache PDFBox 3.x</span></td><td>Extract text from uploaded PDF</td></tr>
+        <tr><td>State</td><td>React Context API</td><td>Share analysis data across all tabs</td></tr>
+        <tr><td>Session</td><td>ConcurrentHashMap</td><td>In-memory session store (no DB for MVP)</td></tr>
+        <tr><td>Job Data</td><td>Local JSON corpus (10 files)</td><td>Role definitions — no external API</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- ══════════════════════════════════════════════════ -->
+  <!-- SLIDE 7 — ARCHITECTURE -->
+  <!-- ══════════════════════════════════════════════════ -->
+  <div class="slide">
+    <div class="label">System Architecture</div>
+    <h2>How the <span class="grad">layers connect</span></h2>
+    <div class="arch">
+      <div class="arch-label">Browser — React 18 · Vite · Port 5173</div>
+      <div class="arch-row">
+        <div class="arch-box blue">Landing</div>
+        <div class="arch-arrow">→</div>
+        <div class="arch-box blue">Loading</div>
+        <div class="arch-arrow">→</div>
+        <div class="arch-box blue">Dashboard</div>
+        <div style="font-size:12px; color:#475569; margin-left:8px;">Score · Skills · Roles · Improve</div>
+      </div>
+      <div class="arch-arrow" style="font-size:26px; transform:rotate(90deg);">→</div>
+      <div class="arch-label">Spring Boot Backend · Port 8080</div>
+      <div class="arch-row">
+        <div class="arch-box green">ResumeController<div style="font-size:10px;margin-top:3px;">/api/resume/analyse</div></div>
+        <div class="arch-box green">AnalysisController<div style="font-size:10px;margin-top:3px;">/api/analyse/**</div></div>
+      </div>
+      <div class="arch-row">
+        <div class="arch-box green">ResumeParseService<div style="font-size:10px;margin-top:3px;">PDF → Text</div></div>
+        <div class="arch-box green">AIAnalysisService<div style="font-size:10px;margin-top:3px;">4 OpenAI calls</div></div>
+        <div class="arch-box green">JobMatchingService<div style="font-size:10px;margin-top:3px;">Skill overlap %</div></div>
+        <div class="arch-box green">SessionStore<div style="font-size:10px;margin-top:3px;">UUID cache</div></div>
+      </div>
+      <div class="arch-row">
+        <div class="arch-arrow" style="font-size:22px; transform:rotate(90deg);">→</div>
+        <div style="width:60px;"></div>
+        <div class="arch-arrow" style="font-size:22px; transform:rotate(90deg);">→</div>
+      </div>
+      <div class="arch-row">
+        <div class="arch-box orange">OpenAI GPT-4o-mini<div style="font-size:10px;margin-top:3px;">via Spring AI</div></div>
+        <div style="width:40px;"></div>
+        <div class="arch-box orange">JD Corpus<div style="font-size:10px;margin-top:3px;">10 JSON files</div></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ══════════════════════════════════════════════════ -->
+  <!-- SLIDE 8 — SPRING AI / AI PIPELINE -->
+  <!-- ══════════════════════════════════════════════════ -->
+  <div class="slide">
+    <div class="label">AI Pipeline</div>
+    <h2>Where <span class="grad">AI is used</span></h2>
+    <div class="ai-calls">
+      <div class="ai-row">
+        <div class="ai-num">1</div>
+        <div class="ai-content">
+          <div class="ai-title">Profile Extraction</div>
+          <div class="ai-desc">Input: raw resume text → GPT extracts structured candidate data</div>
+          <div class="ai-out">Output: name, skills[], experience[], education[], projects[]</div>
+        </div>
+      </div>
+      <div class="ai-row">
+        <div class="ai-num">2</div>
+        <div class="ai-content">
+          <div class="ai-title">ATS Scoring</div>
+          <div class="ai-desc">Input: raw resume text → GPT scores across 6 dimensions</div>
+          <div class="ai-out">Output: totalScore + sections (keywords, skills, projects, impact, alignment, clarity)</div>
+        </div>
+      </div>
+      <div class="ai-row">
+        <div class="ai-num">3</div>
+        <div class="ai-content">
+          <div class="ai-title">Improvement Suggestions</div>
+          <div class="ai-desc">Input: raw resume text → GPT rewrites the 4–5 weakest bullets</div>
+          <div class="ai-out">Output: [ { original, improved, reason } ]</div>
+        </div>
+      </div>
+      <div class="ai-row">
+        <div class="ai-num">4</div>
+        <div class="ai-content">
+          <div class="ai-title">Skill Gap Analysis (on-demand)</div>
+          <div class="ai-desc">Input: candidate skills + target role requirements → GPT categorises</div>
+          <div class="ai-out">Output: strong[], partial[], missing[], priorityLearning[]</div>
+        </div>
+      </div>
+    </div>
+    <p style="margin-top:16px; font-size:13px;">All prompts return <strong style="color:#a5b4fc;">structured JSON only</strong> — no free-form text, fully type-safe parsing.</p>
+  </div>
+
+  <!-- ══════════════════════════════════════════════════ -->
+  <!-- SLIDE 9 — JOB MATCHING ALGORITHM -->
+  <!-- ══════════════════════════════════════════════════ -->
+  <div class="slide">
+    <div class="label">No AI Here — Pure Logic</div>
+    <h2>Role matching <span class="grad">algorithm</span></h2>
+    <div style="max-width:680px; text-align:left; margin-top:12px;">
+      <div class="ai-row" style="flex-direction:column; align-items:flex-start; gap:10px;">
+        <div style="font-size:14px; color:#a5b4fc; font-weight:600;">How it works:</div>
+        <div style="font-size:13px; color:#94a3b8; line-height:1.8;">
+          1. GPT extracts candidate skills (Call #1)<br/>
+          2. 10 JD files loaded at startup <code style="background:#1e293b; padding:2px 6px; border-radius:4px; color:#86efac;">@PostConstruct</code><br/>
+          3. For each role: normalize both sides to lowercase<br/>
+          4. Required skills overlap → <strong style="color:#e2e8f0;">80% weight</strong><br/>
+          5. Preferred skills overlap → <strong style="color:#e2e8f0;">20% weight</strong><br/>
+          6. Sort descending → return <strong style="color:#e2e8f0;">top 5 matches</strong>
+        </div>
+      </div>
+    </div>
+    <div class="highlight" style="margin-top:20px;">
+      <p style="font-size:15px;">Role matching is <strong style="color:#a5b4fc;">intentionally designed without AI</strong> — it's deterministic, fast, and demo-safe. AI is used only where language understanding is needed.</p>
+    </div>
+  </div>
+
+  <!-- ══════════════════════════════════════════════════ -->
+  <!-- SLIDE 10 — FUTURE SCOPE -->
+  <!-- ══════════════════════════════════════════════════ -->
+  <div class="slide">
+    <div class="label">Future Enhancements</div>
+    <h2>Architecture is <span class="grad">already designed</span> for this</h2>
+    <table style="max-width:720px;">
+      <thead>
+        <tr><th>Feature</th><th>What it adds</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>🔐 User Auth (JWT)</td><td>Login, save resume history, track versions</td></tr>
+        <tr><td>🗄️ PostgreSQL + JPA</td><td>Persist analyses, version comparison, progress tracking</td></tr>
+        <tr><td>📝 LaTeX / Overleaf Mode</td><td>Paste .tex code → get improved .tex back → download</td></tr>
+        <tr><td>📄 Cover Letter Generator</td><td>One-click tailored cover letter for a matched role</td></tr>
+        <tr><td>🎤 Interview Q&amp;A Predictor</td><td>Predicted questions + hints based on profile + role</td></tr>
+        <tr><td>🌐 Live Job API</td><td>Real India job listings (Adzuna) — provider abstraction ready</td></tr>
+        <tr><td>🔍 RAG / Vector Search</td><td>Semantic resume-to-JD matching, career Q&amp;A chatbot</td></tr>
+        <tr><td>📱 Multi-LLM Support</td><td>Switch GPT-4 / Claude / Gemini via Spring AI abstraction</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- ══════════════════════════════════════════════════ -->
+  <!-- SLIDE 11 — THANK YOU -->
+  <!-- ══════════════════════════════════════════════════ -->
+  <div class="slide">
+    <div class="label">Mini Project · BCS554 · 5th Sem</div>
+    <h1><span class="grad">Thank You</span></h1>
+    <div class="tagline">"Understand your resume. Know your gaps. Get hired."</div>
+    <div class="pills" style="margin-top:32px;">
+      <span class="pill" style="border-color:#3b82f6; color:#93c5fd;">React 18</span>
+      <span class="pill" style="border-color:#22c55e; color:#86efac;">Spring Boot 4.1.1</span>
+      <span class="pill" style="border-color:#a855f7; color:#d8b4fe;">Spring AI 2.0.1</span>
+      <span class="pill" style="border-color:#f97316; color:#fdba74;">OpenAI GPT-4o-mini</span>
+      <span class="pill" style="border-color:#6366f1; color:#a5b4fc;">Apache PDFBox</span>
+      <span class="pill" style="border-color:#06b6d4; color:#67e8f9;">TailwindCSS</span>
+    </div>
+    <p style="margin-top:32px; font-size:14px; color:#334155;">
+      Supervisor: Prof. Anshul Tickoo &nbsp;·&nbsp;
+      Soumya Joshi &nbsp;·&nbsp; Tanishka Verma &nbsp;·&nbsp; Vanshika Gupta
+    </p>
+  </div>
+
+</div><!-- /slides -->
+
+<script>
+  const slides = document.querySelectorAll('.slide');
+  const dotsEl = document.getElementById('dots');
+  const progressBar = document.getElementById('progress-bar');
+  const slideNumEl = document.getElementById('slide-num');
+  let current = 0;
+
+  // Build dots
+  slides.forEach((_, i) => {
+    const d = document.createElement('div');
+    d.className = 'dot';
+    d.onclick = () => goTo(i);
+    dotsEl.appendChild(d);
+  });
+
+  function goTo(n) {
+    slides[current].classList.remove('active');
+    current = Math.max(0, Math.min(n, slides.length - 1));
+    slides[current].classList.add('active');
+    document.querySelectorAll('.dot').forEach((d, i) =>
+      d.classList.toggle('active', i === current));
+    const pct = ((current + 1) / slides.length) * 100;
+    progressBar.style.width = pct + '%';
+    slideNumEl.textContent = (current + 1) + ' / ' + slides.length;
+  }
+
+  document.getElementById('next').onclick = () => goTo(current + 1);
+  document.getElementById('prev').onclick = () => goTo(current - 1);
+
+  document.addEventListener('keydown', e => {
+    if (e.key === 'ArrowRight' || e.key === 'ArrowDown') goTo(current + 1);
+    if (e.key === 'ArrowLeft'  || e.key === 'ArrowUp')   goTo(current - 1);
+  });
+
+  // Touch swipe
+  let touchX = 0;
+  document.addEventListener('touchstart', e => touchX = e.touches[0].clientX);
+  document.addEventListener('touchend', e => {
+    const dx = e.changedTouches[0].clientX - touchX;
+    if (dx < -50) goTo(current + 1);
+    if (dx >  50) goTo(current - 1);
+  });
+
+  goTo(0);
+</script>
+</body>
+</html>

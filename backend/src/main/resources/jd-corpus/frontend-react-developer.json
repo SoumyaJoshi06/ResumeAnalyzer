@@ -1,0 +1,8 @@
+{
+  "role": "Frontend Developer (React)",
+  "level": "Fresher / 0-2 years",
+  "requiredSkills": ["React", "JavaScript", "HTML", "CSS", "REST API", "Git"],
+  "preferredSkills": ["TypeScript", "TailwindCSS", "Redux", "Next.js", "Jest", "Figma", "Vite"],
+  "keywords": ["frontend", "UI development", "component design", "responsive design", "React hooks"],
+  "description": "We are looking for a Frontend Developer with strong React skills to build responsive, performant web interfaces. You will collaborate with backend teams to integrate APIs and deliver great user experiences."
+}

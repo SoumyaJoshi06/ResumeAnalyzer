@@ -1,0 +1,8 @@
+{
+  "role": "QA / Test Engineer",
+  "level": "Fresher / 0-2 years",
+  "requiredSkills": ["Manual Testing", "Test Cases", "Bug Reporting", "SQL", "Git"],
+  "preferredSkills": ["Selenium", "Postman", "JUnit", "TestNG", "API Testing", "JIRA", "Agile", "Automation Testing"],
+  "keywords": ["quality assurance", "testing", "automation", "test cases", "bug tracking", "regression testing"],
+  "description": "We are looking for a QA Engineer to ensure software quality through systematic testing. You will write test cases, execute manual and automated tests, report defects, and work with developers to resolve issues."
+}

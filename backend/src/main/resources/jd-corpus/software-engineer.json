@@ -1,0 +1,8 @@
+{
+  "role": "Software Engineer (General)",
+  "level": "Fresher / 0-2 years",
+  "requiredSkills": ["Data Structures", "Algorithms", "OOP", "Git", "SQL", "Problem Solving"],
+  "preferredSkills": ["Java", "Python", "System Design", "REST API", "Unit Testing", "Agile", "Linux"],
+  "keywords": ["software development", "coding", "problem solving", "algorithms", "system design", "engineering"],
+  "description": "We are looking for a Software Engineer with strong fundamentals in data structures, algorithms, and OOP. You will work across the stack on product features, write clean maintainable code, and participate in code reviews."
+}

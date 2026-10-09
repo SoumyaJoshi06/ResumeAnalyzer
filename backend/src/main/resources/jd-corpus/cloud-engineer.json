@@ -1,0 +1,8 @@
+{
+  "role": "Cloud Engineer",
+  "level": "Fresher / 0-2 years",
+  "requiredSkills": ["AWS", "Linux", "Networking", "Git", "Python", "Cloud Fundamentals"],
+  "preferredSkills": ["Azure", "GCP", "Terraform", "Docker", "Kubernetes", "IAM", "S3", "EC2", "Lambda"],
+  "keywords": ["cloud", "AWS", "infrastructure", "serverless", "deployment", "scalability", "cloud architecture"],
+  "description": "We are looking for a Cloud Engineer to design, deploy, and manage cloud infrastructure on AWS. You will work on scalability, cost optimization, and security of cloud-hosted applications."
+}

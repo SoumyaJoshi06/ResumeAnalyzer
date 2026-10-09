@@ -1,0 +1,8 @@
+{
+  "role": "Java Backend Developer",
+  "level": "Fresher / 0-2 years",
+  "requiredSkills": ["Java", "Spring Boot", "REST API", "SQL", "Git", "OOP", "Maven"],
+  "preferredSkills": ["Docker", "AWS", "Microservices", "Kafka", "CI/CD", "Hibernate", "JUnit"],
+  "keywords": ["backend", "microservices", "API development", "database", "spring framework"],
+  "description": "We are looking for a Java Backend Developer to build and maintain high-performance REST APIs using Spring Boot. You will work on designing scalable backend services, integrating databases, and writing clean, testable code."
+}

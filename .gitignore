@@ -1,0 +1,21 @@
+# Maven / Java build output
+**/target/
+
+# Node.js dependencies
+**/node_modules/
+
+# Frontend build output
+**/dist/
+**/build/
+
+# Environment variables and secrets
+.env
+.env.*
+!.env.example
+
+# IDE files
+.idea/
+.vscode/
+
+# Logs
+*.log

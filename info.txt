@@ -1,0 +1,49 @@
+abstract
+AI-powered full-stack web application for analyzing resumes.
+ Extracts relevant skills and information from uploaded resumes.
+ Generates an overall resume/ATS score with actionable feedback.
+ Provides actionable suggestions to improve resume quality.
+Recommends suitable job roles and current job openings based on resume–job matching.
+ Uses Ollama for intelligent resume analysis.
+
+
+objective
+To develop an AI-based system for automated resume analysis.
+ To identify and extract important skills and information from resumes.
+ To evaluate the quality and effectiveness of resume content.
+ To generate a resume score based on the analysis.
+To identify skill gaps and recommend suitable career roles.
+To match resumes with relevant job descriptions and job openings.
+ To provide meaningful suggestions for improving resumes.
+ To assist users in discovering relevant job opportunities.
+
+SCOPE of the Problem Statement
+Automates the initial analysis of resumes using  AI.
+ Helps students and job seekers identify weaknesses in their resumes.
+ Provides personalized feedback instead of relying only on manual review.
+ Can assist users in improving resume content before applying for jobs.
+ Integrates job suggestions based on the user's profile and resume.
+Skill Gap Analysis – identifies missing/high-priority skills for target roles.
+ Can be extended with additional AI models, job platforms, and advanced resume metrics.
+Resume Version Tracking – compares versions and shows improvement over time.
+
+
+Realted work
+AI Resume Analyzer — Ratna-Babu
+   - https://github.com/Ratna-Babu/AI-Resume-Analyzer?
+AI Resume Analyzer — Adrian Hajdin
+   - https://github.com/adrianhajdin/ai-resume-analyzer?
+AI Job Portal with Resume Analyzer — Codebun
+   - https://codebun.com/ai-powered-resume-analysis-job-matching-platform/?
+Spring Boot AI Resume Analyzer — d-Subrahmanyam
+   - https://github.com/d-subrahmanyam/spring-boot-ai-resume-analyzer?
+
+
+Applciations
+Resume evaluation for college students and fresh graduates.
+Resume improvement before internship and job applications.
+Skill identification and analysis.
+Career preparation and self-assessment.
+Useful for placement preparation and recruitment assistance.
+Can be used as a learning and career-development tool.
+

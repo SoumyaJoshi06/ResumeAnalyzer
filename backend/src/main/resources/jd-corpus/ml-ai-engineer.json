@@ -1,0 +1,8 @@
+{
+  "role": "ML / AI Engineer",
+  "level": "Fresher / 0-2 years",
+  "requiredSkills": ["Python", "Machine Learning", "NumPy", "Pandas", "Scikit-learn", "SQL", "Git"],
+  "preferredSkills": ["Deep Learning", "TensorFlow", "PyTorch", "NLP", "OpenCV", "Jupyter", "AWS SageMaker", "LLMs"],
+  "keywords": ["machine learning", "AI", "model training", "feature engineering", "neural networks", "NLP", "deep learning"],
+  "description": "We are looking for an ML Engineer to build, train, and deploy machine learning models. You will work on real-world datasets, optimize model performance, and integrate ML capabilities into production systems."
+}

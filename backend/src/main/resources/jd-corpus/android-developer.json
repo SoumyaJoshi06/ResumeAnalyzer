@@ -1,0 +1,8 @@
+{
+  "role": "Android Developer",
+  "level": "Fresher / 0-2 years",
+  "requiredSkills": ["Android", "Kotlin", "Java", "XML Layouts", "REST API", "Git", "Android Studio"],
+  "preferredSkills": ["Jetpack Compose", "MVVM", "Firebase", "Room DB", "Retrofit", "Coroutines", "Google Play"],
+  "keywords": ["Android", "mobile development", "Kotlin", "app development", "UI design", "mobile apps"],
+  "description": "We are looking for an Android Developer to design and build mobile applications for the Android platform. You will write clean Kotlin code, implement UI from designs, and integrate REST APIs."
+}
